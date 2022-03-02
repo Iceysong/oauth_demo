@@ -23,12 +23,12 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Autowired
     private AuthenticationManager authenticationManager;
     /**
-     * 配置令牌端点(Token Endpoint)的安全约束
+     * 配置令牌端点(Token Endpoint)的安全约束,设置一些规则
      * @param security
      * @throws Exception
      */
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
-        security.checkTokenAccess("isAuthenticated()");
+        security.checkTokenAccess("isAuthenticated()");//check toke必须要去认证
     }
 
     /**
@@ -48,8 +48,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .redirectUris("https://vip.tulingxueyuan.cn/index")//重定向地址
                 //设置资源中心
                 .and()
-                .withClient("front_app")
-                .secret(passwordEncoder.encode("front_app"))
+                .withClient("order_app")
+                .secret(passwordEncoder.encode("order_app"))
                 .accessTokenValiditySeconds(1800)
                 .scopes("read")
                 .authorizedGrantTypes("password")
